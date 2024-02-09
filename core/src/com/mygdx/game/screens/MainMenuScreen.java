@@ -34,10 +34,13 @@ public class MainMenuScreen extends GameInterface {
    @Override
    public void update(){
       if(Gdx.input.getX()>=738-width/2 && Gdx.input.getX()<= 738+width/2 &&
-         Gdx.input.getY()>=480-height/2 && Gdx.input.getY() <= 480+height/2
-         && Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
-            
-         startGame = true;
+         Gdx.input.getY()>=480-height/2 && Gdx.input.getY() <= 480+height/2){
+            font.setColor(Color.GRAY);
+            if(Gdx.input.isButtonJustPressed(Input.Buttons.LEFT)){
+               startGame = true;
+         }
+      } else {
+         font.setColor(Color.WHITE);
       }
    }
    @Override
@@ -53,7 +56,7 @@ public class MainMenuScreen extends GameInterface {
       parameter.size = 100;
       parameter.color = Color.WHITE;
       font = generator.generateFont(parameter);
-      width = 275f;
+      width = 225f;
       height = 68f;
    }
 }

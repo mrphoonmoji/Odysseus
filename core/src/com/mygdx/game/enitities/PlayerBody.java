@@ -6,19 +6,17 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.BodyDef.BodyType;
-import com.mygdx.game.MyGame;
 import static com.mygdx.game.util.Constants.SCALED_VALUE;
 import static com.mygdx.game.util.Constants.TILESIZE;
 
 public class PlayerBody{
 
    World world;
-   MyGame game;
    Body body;
    Vector2 pos = new Vector2(15f,32f);
 
-   public PlayerBody (MyGame game, World world){
-      this.game = game;
+   public final float maxSpeed = 5f;
+   public PlayerBody (World world){
       this.world = world;
       this.body = createBody(world);
 
@@ -33,15 +31,16 @@ public class PlayerBody{
 
       body = world.createBody(def);
       PolygonShape shape = new PolygonShape();
-      shape.setAsBox(SCALED_VALUE(TILESIZE), SCALED_VALUE(TILESIZE));
+      shape.setAsBox(SCALED_VALUE(TILESIZE) / 2, SCALED_VALUE(TILESIZE) / 2);
       body.createFixture(shape, 1f);
 
       return body;
    }
-   public float getPlayerX(){
-      return body.getPosition().x;
-   }
-   public float getPlayerY(){
-      return body.getPosition().y;
+   public boolean onAir(){
+      if(body.getLinearVelocity().y > 0){
+         return true;
+      } else {
+         return false;
+      }
    }
 } 
